@@ -23,8 +23,8 @@ def update():
     if keyboard.s:
         bees.y=bees.y+2
 def ra():
-    x=random.randint(0,1000)
-    y=random.randint(0,800)
-clock.schedule_interval(ra,1.0)
+    flower.x=random.randint(0,1000)
+    flower.y=random.randint(0,800)
+clock.schedule_interval(ra,3.0)
 ra()
 pgzrun.go()
