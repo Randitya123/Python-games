@@ -6,7 +6,7 @@ WIDTH=1100
 
 gameo=False
 gamec=False
-level=1
+level=8
 l2=[]
 tlev=8
 speed=15
@@ -29,13 +29,15 @@ def put(extra):
     for i in option:
         act=Actor(i)
         l3.append(act)
-    size=WIDTH/(len(l3))
+    size=WIDTH/(len(l3)+1)
     for u,z in enumerate(l3):
         z.x=(u+1)*size
         z.y=0
-        animate(z, duration=speed - level, on_finshed=handle_game_over, y=HEIGHT)
+        animate(z, duration=speed - level, on_finished=handle_game_over, y=HEIGHT)
     return l3
 def handle_game_over():
     global gameo
     gameo=True
+def on_mouse_down():
+    
 pgzrun.go()
