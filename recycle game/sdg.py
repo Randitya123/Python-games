@@ -6,15 +6,20 @@ WIDTH=1100
 
 gameo=False
 gamec=False
-level=8
+level=1
 l2=[]
 tlev=8
-speed=15
+speed=9
 l1=["bag.png","computer.png","mirror.png","pot.png"]
 def draw():
     screen.blit("recycle.jpg",(0,0))
-    for t in l2:
-        t.draw()
+    if gameo:
+        screen.draw.text("You lost!",center=(550,150),fontsize=60,color="black")
+    elif gamec:
+        screen.draw.text("You Won!",center=(550,150),fontsize=60,color="black")
+    else:
+        for t in l2:
+            t.draw()
 def update():
     global l2, level
     
@@ -38,6 +43,16 @@ def put(extra):
 def handle_game_over():
     global gameo
     gameo=True
-def on_mouse_down():
-    
+def on_mouse_down(pos):
+    global l2,level,gamec
+    for i in l2:
+        if i.collidepoint(pos):
+            if "box" in i.image:
+                if level==tlev:
+                   gamec=True
+                else:
+                    level+=1
+                    l2.clear()
+            else:
+                handle_game_over()
 pgzrun.go()
