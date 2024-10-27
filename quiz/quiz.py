@@ -43,7 +43,10 @@ def draw():
     screen.draw.textbox(str(timee),timer,color="black",shadow=(0.5,0.5),scolor="lightgreen")
     screen.draw.textbox("SKIP",skip,color="black",shadow=(0.5,0.5),scolor="lightgreen",angle=-90)
     screen.draw.textbox(l1q[0].strip(),main,color="black",shadow=(0.5,0.5),scolor="lightblue")
-
+    count=1
+    for i in l1:
+        screen.draw.textbox(l1q[count].strip(),i,color="black",shadow=(0.5,0.5),scolor="lightblue")
+        count+=1
 def move():
     marquee.x-=3
     if marquee.right<0:
