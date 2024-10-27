@@ -42,10 +42,10 @@ def draw():
     screen.draw.textbox(mess,marquee,color="white")
     screen.draw.textbox(str(timee),timer,color="black",shadow=(0.5,0.5),scolor="lightgreen")
     screen.draw.textbox("SKIP",skip,color="black",shadow=(0.5,0.5),scolor="lightgreen",angle=-90)
-    screen.draw.textbox(l1q[0].strip(),main,color="black",shadow=(0.5,0.5),scolor="lightblue")
+    screen.draw.textbox(question[0].strip(),main,color="black",shadow=(0.5,0.5),scolor="lightblue")
     count=1
     for i in l1:
-        screen.draw.textbox(l1q[count].strip(),i,color="black",shadow=(0.5,0.5),scolor="lightblue")
+        screen.draw.textbox(question[count].strip(),i,color="black",shadow=(0.5,0.5),scolor="pink")
         count+=1
 def move():
     marquee.x-=3
@@ -54,8 +54,9 @@ def move():
 def read():
     global questionc,index,l1q
     file=open(questionfile,"r")
-    for i in file:
-        l1q.append(i)
+    for question in file:
+        l1q.append(question)
+        #l1q.append(question.strip().split(","))
         questionc+=1
     file.close()
 def nextq():
@@ -65,6 +66,42 @@ def nextq():
 def update():
     pass
     move()
+def updatetime():
+    global timee
+    if timee>0:
+        timee-=1
+    else:
+        gameofunc()
+def gameofunc():
+    global question,timee,gameo
+    gameo=True
+    timee=0
+    mess=f"The game is over,score is {score}"
+    question=[mess,"-","-","-","-",5]
+def skipfunc():
+    global question,timee
+    if l1q and not gameo:
+        question=nextq()
+        timee=20
+    else:
+        gameofunc()
+def on_mouse_down(pos):
+    i=1
+    for box in l1:
+        if box.collidepoint(pos):
+            if i==int(question[5]):
+                correctans()
+    if skip.collidepoint(pos):
+        skipfunc()
+def correctans():
+    global timee,question,score,l1q
+    score+=1
+    if l1q:
+        question=nextq()
+        timee=20
+    else:
+        gameofunc()
 read()
-nextq()
+question=nextq()
+clock.schedule_interval(updatetime,1)
 pgzrun.go()
