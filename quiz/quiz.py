@@ -86,11 +86,14 @@ def skipfunc():
     else:
         gameofunc()
 def on_mouse_down(pos):
-    i=1
+    ind=1
     for box in l1:
         if box.collidepoint(pos):
-            if i==int(question[5]):
+            if ind==int(question[5]):
                 correctans()
+            else:
+                gameofunc()
+        ind+=1
     if skip.collidepoint(pos):
         skipfunc()
 def correctans():
